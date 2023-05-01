@@ -24,8 +24,6 @@ class ViewController: UIViewController {
         // 結果表示用ラベルの初期化
         sliderResultDispLabel.text = "14"
 
-        // [Swift3] 値をつまみのスライドで調整するUISliderの使い方
-        // https://joyplot.com/documents/swift-uislider/
         // スライダーの値が変更された時に呼び出されるメソッドを設定
         mySlider.addTarget(self, action: #selector(self.onChange), for: .valueChanged)
 
@@ -34,7 +32,6 @@ class ViewController: UIViewController {
         mySlider.maximumValue = 100.0
 
         // デフォルト値の設定
-        //mySlider.value = 5.0                  // 瞬時に値を変更する
         mySlider.setValue(50.0, animated: true) // アニメーション付きで値を変更する
 
         // スライダーバー（正式にはトラックと呼びます）の色を変更（フォルトは青）
@@ -67,22 +64,6 @@ class ViewController: UIViewController {
         // 乱数発生とスライダー位置をデフォルト値設定
         int_Slider ()
 
-//        if sliderResultData == Int( sliderResultDispLabel.text!) {
-//            // 結果タイトル、あたり！とあなたの値：、再挑戦
-//            disp_Alert ( mainTitle: "結果", subTitle: "あたり！\nあなたの値：" + String(sliderResultData) )
-//        }
-//        else {
-//            // 結果タイトル、はずれ！とあなたの値：、再挑戦
-//            disp_Alert ( mainTitle: "結果", subTitle: "はずれ！\nあなたの値：" + String(sliderResultData) )
-//        }
-//
-//        // 次の乱数発生しラベル表示
-//        let randomNum = randomNumberOccurrence ()
-//        sliderResultDispLabel.text = String( randomNum )
-//
-//        // スライダー位置をデフォルト値に設定
-//        mySlider.setValue(50.0, animated: true)
-
     }
 
     // 乱数発生とスライダー位置をデフォルト値設定
@@ -90,7 +71,6 @@ class ViewController: UIViewController {
         // 次の乱数発生しラベル表示
         let randomNum = randomNumberOccurrence ()
         sliderResultDispLabel.text = String( randomNum )
-
         // スライダー位置をデフォルト値に設定
         mySlider.setValue(50.0, animated: true)
     }
@@ -103,8 +83,6 @@ class ViewController: UIViewController {
 
     // 「タイトル」と「サブタイトル」の引数によりアラートダイアログを表示する
     func disp_Alert ( mainTitle: String, subTitle: String ) {
-        // swift5でダイアログを表示する方法
-        // https://qiita.com/kaneko77/items/010c3836a1a063ad015e
         //アラートのタイトル
         let dialog = UIAlertController(title: mainTitle, message: subTitle, preferredStyle: .alert)
         //ボタンのタイトル
