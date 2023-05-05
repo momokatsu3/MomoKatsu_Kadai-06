@@ -15,17 +15,11 @@ class ViewController: UIViewController {
     // 結果表示用のラベルを設定
     @IBOutlet weak var sliderResultDispLabel: UILabel!
 
-    // スライダー値用変数の設定と初期化
-    var sliderResultData: Int = 14
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 結果表示用ラベルの初期化
         sliderResultDispLabel.text = "14"
-
-        // スライダーの値が変更された時に呼び出されるメソッドを設定
-        mySlider.addTarget(self, action: #selector(self.onChange), for: .valueChanged)
 
         // 最小値・最大値の設定
         mySlider.minimumValue = 1.0
@@ -33,41 +27,31 @@ class ViewController: UIViewController {
 
         // デフォルト値の設定
         mySlider.setValue(50.0, animated: true) // アニメーション付きで値を変更する
-
-        // スライダーバー（正式にはトラックと呼びます）の色を変更（フォルトは青）
-        //mySlider.tintColor = UIColor.link//ghtblue //cyan //blue//red
-
-    }
-
-    // スライダーの値が変更された時の処理
-    @objc func onChange(_ sender: UISlider) {
-        print(sender.value)
     }
 
     // スライダーの値を判定ボタンのクリックにより、判定結果を表示する。
     @IBAction func resultJudgmentButton(_ sender: Any) {
 
         // スライダー位置の値を変数に設定
-        sliderResultData = Int( mySlider.value )
+        let sliderResultData = Int( mySlider.value )
         print ( "\nスライダー実位置の値：", mySlider.value, "\nスライダー位置変換後の値：", sliderResultData, "\nスライダーを設定べき値：", sliderResultDispLabel.text! )
 
-        // スライダー位置変換後の値 と スライダーを設定べき値 を比較判定
-        guard sliderResultData == Int( sliderResultDispLabel.text!) else {
-            // 結果タイトル、はずれ！とあなたの値：、再挑戦
-            disp_Alert ( mainTitle: "結果", subTitle: "はずれ！\nあなたの値：" + String(sliderResultData) )
-            // 乱数発生とスライダー位置をデフォルト値設定
-            int_Slider ()
-            return
+        let firstLine: String
+        if sliderResultData == Int( sliderResultDispLabel.text!) {
+            firstLine = "あたり！"
+        } else {
+            firstLine = "はずれ！"
         }
-        // 結果タイトル、あたり！とあなたの値：、再挑戦
-        disp_Alert ( mainTitle: "結果", subTitle: "あたり！\nあなたの値：" + String(sliderResultData) )
-        // 乱数発生とスライダー位置をデフォルト値設定
-        int_Slider ()
 
+        // 結果タイトル、はずれ！とあなたの値：、再挑戦
+        displayAlert ( mainTitle: "結果", subTitle: "\(firstLine)\nあなたの値：" + String(sliderResultData) )
+
+        // 乱数発生とスライダー位置をデフォルト値設定
+        resetGameState ()
     }
 
     // 乱数発生とスライダー位置をデフォルト値設定
-    func int_Slider () {
+    func resetGameState () {
         // 次の乱数発生しラベル表示
         let randomNum = randomNumberOccurrence ()
         sliderResultDispLabel.text = String( randomNum )
@@ -77,12 +61,11 @@ class ViewController: UIViewController {
 
     // 乱数発生用関数
     func randomNumberOccurrence () -> Int {
-        let randomNum = Int (arc4random_uniform( 99 ) ) + 1
-        return (randomNum)
+        return Int.random(in: 1...100)
     }
 
     // 「タイトル」と「サブタイトル」の引数によりアラートダイアログを表示する
-    func disp_Alert ( mainTitle: String, subTitle: String ) {
+    func displayAlert ( mainTitle: String, subTitle: String ) {
         //アラートのタイトル
         let dialog = UIAlertController(title: mainTitle, message: subTitle, preferredStyle: .alert)
         //ボタンのタイトル
